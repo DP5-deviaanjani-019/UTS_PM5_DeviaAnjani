@@ -5,12 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".MainActivity"
+    tools:context=".Intro"
+    android:id="@+id/main"
     tools:ignore="ExtraText">
-
-  <!-- Icon menu di bagian atas -->
-
-  <!-- Selamat Datang Text -->
 
   <ImageView
       android:id="@+id/menuIcon"
@@ -23,51 +20,3 @@
       app:layout_constraintTop_toBottomOf="@id/quizDevText"
       app:layout_constraintEnd_toEndOf="parent"
       tools:ignore="HardcodedText" />
-
-    <TextView
-      android:id="@+id/welcomeText"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Selamat Datang Di"
-      android:textColor="#FFFFFF"
-      android:textSize="24sp"
-      android:textStyle="bold"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      android:layout_marginTop="150dp"
-      app:layout_constraintHorizontal_bias="0.5"
-      tools:ignore="HardcodedText" />
-
-  <!-- QUIZ DEV Text -->
-  <TextView
-      android:id="@+id/quizDevText"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="QUIZ DEV"
-      android:textColor="#FFFFFF"
-      android:textSize="36sp"
-      android:textStyle="bold"
-      app:layout_constraintTop_toBottomOf="@id/welcomeText"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      android:layout_marginTop="16dp"
-      app:layout_constraintHorizontal_bias="0.5"
-      tools:ignore="HardcodedText" />
-
-  <!-- Tombol Mulai -->
-  <Button
-      android:id="@+id/startButton"
-      android:layout_width="200dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="252dp"
-      android:backgroundTint="#FFFFFF"
-      android:text="Mulai"
-      android:textColor="#000000"
-      android:textStyle="bold"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.497"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/quizDevText"
-      tools:ignore="HardcodedText" />
-</androidx.constraintlayout.widget.ConstraintLayout>
