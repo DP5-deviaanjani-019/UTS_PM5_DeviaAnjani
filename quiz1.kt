@@ -81,3 +81,12 @@ class Quiz1 : AppCompatActivity() {
                 updateQuestion()
             }
         }
+
+        prevButton.setOnClickListener {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--
+                updateQuestion()
+            }
+        }
+    }
+}
