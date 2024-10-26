@@ -33,3 +33,28 @@ class Quiz1 : AppCompatActivity() {
     )
 
     private var currentQuestionIndex = 0 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_quiz1)
+
+        val questionText: TextView = findViewById(R.id.questionText)
+        val optionA: Button = findViewById(R.id.optionA)
+        val optionB: Button = findViewById(R.id.optionB)
+        val optionC: Button = findViewById(R.id.optionC)
+        val optionD: Button = findViewById(R.id.optionD)
+        val optionE: Button = findViewById(R.id.optionE)
+        val nextButton: Button = findViewById(R.id.nextButton)
+        val prevButton: Button = findViewById(R.id.prevButton)
+
+        fun updateQuestion() {
+            questionText.text = questions[currentQuestionIndex]
+            optionA.text = options[currentQuestionIndex][0]
+            optionB.text = options[currentQuestionIndex][1]
+            optionC.text = options[currentQuestionIndex][2]
+            optionD.text = options[currentQuestionIndex][3]
+            optionE.text = options[currentQuestionIndex][4]
+
+            prevButton.isVisible = currentQuestionIndex > 0
+            nextButton.isEnabled = currentQuestionIndex < questions.size - 1
+        }
