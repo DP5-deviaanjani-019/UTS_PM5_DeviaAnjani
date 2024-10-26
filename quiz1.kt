@@ -1,3 +1,4 @@
+
 package com.example.quizdev
 
 import android.os.Bundle
@@ -57,4 +58,26 @@ class Quiz1 : AppCompatActivity() {
 
             prevButton.isVisible = currentQuestionIndex > 0
             nextButton.isEnabled = currentQuestionIndex < questions.size - 1
+        }
+
+        updateQuestion()
+
+        val optionButtons = listOf(optionA, optionB, optionC, optionD, optionE)
+
+        optionButtons.forEach { button ->
+            button.setOnClickListener {
+                if (currentQuestionIndex < questions.size - 1) {
+                    currentQuestionIndex++
+                    updateQuestion()
+                } else {
+                    nextButton.isEnabled = false
+                }
+            }
+        }
+
+        nextButton.setOnClickListener {
+            if (currentQuestionIndex < questions.size - 1) {
+                currentQuestionIndex++
+                updateQuestion()
+            }
         }
