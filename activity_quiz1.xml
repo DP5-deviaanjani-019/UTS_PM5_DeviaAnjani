@@ -1,145 +1,155 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".Quiz1">
+package com.example.quizdev
 
-    <TextView
-        android:id="@+id/titleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="QUIZ DEV"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+import android.content.Intent // Import Intent
+import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.core.content.ContextCompat
 
-     <TextView
-        android:id="@+id/questionText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pertanyaan 1 adalah sebagai berikut"
-        android:textColor="@color/black"
-        android:background="@color/white"
-        android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@id/titleText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="48dp" />
+class Quiz1 : AppCompatActivity() {
 
-    <Button
-        android:id="@+id/optionA"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Pilihan ganda A"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/questionText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:cornerRadius="16dp" />
+    private val questions = listOf(
+        "Apa yang dimaksud dengan 'API'?",
+        "Bahasa pemrograman mana yang paling sering digunakan untuk pengembangan aplikasi web front-end?",
+        "Framework mana yang sering digunakan untuk pengembangan aplikasi mobile di Android?",
+        "Apa fungsi dari 'Version Control System' (VCS)?",
+        "Manakah dari berikut ini yang merupakan metode pengembangan perangkat lunak yang berfokus pada iterasi dan umpan balik?"
+    )
 
-    <Button
-        android:id="@+id/optionB"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Pilihan ganda B"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/optionA"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:cornerRadius="16dp" />
+    private val options = listOf(
+        listOf(
+            "Application Programming Interface",
+            "Automated Program Integration",
+            "Application Process Information",
+            "Automatic Programming Interface",
+            "None of the above"
+        ),
+        listOf("Python", "Java", "JavaScript", "C++", "Ruby"),
+        listOf("Django", "React", "Spring", "Flutter", "Angular"),
+        listOf(
+            "Mengelola database",
+            "Mengelola versi dan kolaborasi kode",
+            "Mengoptimalkan kecepatan aplikasi",
+            "Mengelola sistem operasi",
+            "Meningkatkan keamanan aplikasi"
+        ),
+        listOf("Waterfall", "Agile", "V-Model", "Spiral", "Big Bang")
+    )
 
-    <Button
-        android:id="@+id/optionC"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Pilihan ganda C"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/optionB"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:cornerRadius="16dp" />
+    private val correctAnswers = listOf(
+        "Application Programming Interface",
+        "JavaScript",
+        "Flutter",
+        "Mengelola versi dan kolaborasi kode",
+        "Agile"
+    )
 
-    <Button
-        android:id="@+id/optionD"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Pilihan ganda D"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/optionC"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:cornerRadius="16dp" />
+    private var currentQuestionIndex = 0
+    private var selectedButton: Button? = null
+    private val userAnswers = MutableList(questions.size) { "" } // Simpan jawaban pengguna
+    private var score = 0
 
-    <Button
-        android:id="@+id/optionE"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Pilihan ganda E"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/optionD"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:cornerRadius="16dp" />
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_quiz1)
 
-     <Button
-        android:id="@+id/prevButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/white"
-        android:padding="12dp"
-        android:text="Sebelumnya"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:cornerRadius="16dp"
-        app:layout_constraintEnd_toStartOf="@id/nextButton"
-        app:layout_constraintHorizontal_bias="0.391"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/optionE" />
+        val questionText: TextView = findViewById(R.id.questionText)
+        val optionA: Button = findViewById(R.id.optionA)
+        val optionB: Button = findViewById(R.id.optionB)
+        val optionC: Button = findViewById(R.id.optionC)
+        val optionD: Button = findViewById(R.id.optionD)
+        val optionE: Button = findViewById(R.id.optionE)
+        val nextButton: Button = findViewById(R.id.nextButton)
+        val prevButton: Button = findViewById(R.id.prevButton)
 
-    <Button
-        android:id="@+id/nextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="44dp"
-        android:backgroundTint="@color/white"
-        android:padding="12dp"
-        android:text="Selanjutnya"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:cornerRadius="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/optionE" />
+        val optionButtons = listOf(optionA, optionB, optionC, optionD, optionE)
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        fun updateQuestion() {
+            questionText.text = questions[currentQuestionIndex]
+            optionA.text = options[currentQuestionIndex][0]
+            optionB.text = options[currentQuestionIndex][1]
+            optionC.text = options[currentQuestionIndex][2]
+            optionD.text = options[currentQuestionIndex][3]
+            optionE.text = options[currentQuestionIndex][4]
+
+            resetButtonStyles(optionButtons)
+            prevButton.isVisible = currentQuestionIndex > 0
+            nextButton.isEnabled = false
+
+            // Soroti jawaban yang dipilih sebelumnya, jika ada
+            val selectedAnswer = userAnswers[currentQuestionIndex]
+            if (selectedAnswer.isNotEmpty()) {
+                optionButtons.forEach { button ->
+                    if (button.text == selectedAnswer) {
+                        button.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+                        button.setTextColor(ContextCompat.getColor(this, R.color.white))
+                    }
+                }
+                nextButton.isEnabled = true
+            }
+            nextButton.text =
+                if (currentQuestionIndex < questions.size - 1) "Selanjutnya" else "Selesai"
+        }
+
+        updateQuestion()
+
+        optionButtons.forEach { button ->
+            button.setOnClickListener {
+                resetButtonStyles(optionButtons)
+                selectedButton = button
+                val selectedAnswer = button.text.toString()
+
+                // Perbarui jawaban pengguna untuk pertanyaan saat ini
+                userAnswers[currentQuestionIndex] = selectedAnswer
+
+                // Ubah gaya untuk tombol yang dipilih
+                button.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+                button.setTextColor(ContextCompat.getColor(this, R.color.white))
+
+                nextButton.isEnabled = true
+            }
+        }
+
+        nextButton.setOnClickListener {
+            if (currentQuestionIndex < questions.size - 1) {
+                currentQuestionIndex++
+                updateQuestion()
+            } else {
+                // Hitung skor
+                calculateScore()
+
+                // Membuat Intent untuk berpindah ke aktivitas Penilaian
+                val intent = Intent(this, Penilaian::class.java)
+                // Mengirimkan skor ke aktivitas Penilaian
+                intent.putExtra("SCORE", score)
+                startActivity(intent) // Memulai aktivitas Penilaian
+            }
+        }
+
+        prevButton.setOnClickListener {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--
+                updateQuestion()
+            }
+        }
+    }
+
+    private fun resetButtonStyles(buttons: List<Button>) {
+        selectedButton = null
+        for (button in buttons) {
+            button.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+            button.setTextColor(ContextCompat.getColor(this, R.color.black))
+        }
+    }
+
+    private fun calculateScore() {
+        score = 0
+        for (i in userAnswers.indices) {
+            if (userAnswers[i] == correctAnswers[i]) {
+                score += 20
+            }
+        }
+    }
+}
