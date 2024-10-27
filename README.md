@@ -35,3 +35,10 @@ https://github.com/user-attachments/assets/2ce20aab-aa08-4d60-8926-8d8343e83020
 # Icon Logo
 ![quizdev](https://github.com/user-attachments/assets/bb285acb-3067-4a76-bf0f-07691ea7e5bd)
 
+# Link Mockup atau Prototype
+https://www.figma.com/design/yLr4nta5BeaoSgwmiV1Kse/uts_lab_pemmob?node-id=0-1&t=Nr2AAmYH86PwJGY3-1
+
+# Zip Apk Quiz Dev
+[Quiz Dev.zip](https://github.com/user-attachments/files/17534198/Quiz.Dev.zip)
+
+
